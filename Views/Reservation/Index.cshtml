@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Reservation";
+}
+
+
+@model List<Reservation>
+
+<h2>Reservations</h2>
+
+<ul>
+    @foreach (var reservation in Model)
+    {
+        <li>@reservation.UserName reserved @reservation.Room.Name from @reservation.StartTime to @reservation.EndTime</li>
+    }
+</ul>
+
+
