@@ -21,7 +21,18 @@ namespace RoomReservationApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,         // Maximum number of retries
+                            maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
+                            errorNumbersToAdd: null   // List of SQL Server error numbers to retry
+                        );
+                    });
+            });
 
             services.AddControllersWithViews();
 

@@ -29,7 +29,7 @@ namespace RoomReservationApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Redirect(returnUrl);
+                    return Redirect(returnUrl ?? "/Home/Index");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt");
